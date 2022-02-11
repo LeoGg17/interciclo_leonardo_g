@@ -44,8 +44,16 @@ public class ProductoRestController {
 //////////////////////// CREA UN REGISTRO PARA LA TABLA PRODUCTO /////////////
 	@PostMapping
 	public ResponseEntity<Producto> createProducto(@RequestBody Producto producto) {
-		Producto nuevoProducto = iproductodao.save(producto);
-		return ResponseEntity.ok(nuevoProducto);
+	 double c=0; 
+			c=producto.getPrecio()*producto.getCantidad();
+			if(c>50) {
+				c=c*0.90*1.12;
+			} 
+			producto.setCalculo(c);
+			Producto nuevoProducto = iproductodao.save(producto);
+			return ResponseEntity.ok(nuevoProducto);
+		 
+		
 	}
 
 ////////////////////////ACTUALIZA UN REGISTRO VALIENDOSE DE SU CODIGO /////////////
